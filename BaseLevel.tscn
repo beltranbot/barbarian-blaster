@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://4qgvfaoktkhb"]
+[gd_scene load_steps=13 format=3 uid="uid://4qgvfaoktkhb"]
 
 [ext_resource type="MeshLibrary" uid="uid://dqewbcymma3xd" path="res://MeshLibraries/SpaceLibrary.tres" id="1_8oufs"]
 [ext_resource type="PackedScene" uid="uid://ctqpgvalo4uwl" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_x1514"]
 [ext_resource type="PackedScene" uid="uid://bu6af4kwj4usb" path="res://Enemy/enemy.tscn" id="2_a3eqb"]
 [ext_resource type="PackedScene" uid="uid://by5sitr0s0qa7" path="res://Base/base.tscn" id="3_w1b3w"]
+[ext_resource type="Script" path="res://enemy_path.gd" id="3_xwrq2"]
 [ext_resource type="Script" path="res://turrent_manager.gd" id="5_jj6vh"]
 [ext_resource type="PackedScene" uid="uid://cwppyqc45wki7" path="res://Turret/turret.tscn" id="6_4kuqe"]
 
@@ -56,10 +57,12 @@ data = {
 "cells": PackedInt32Array(65535, 65534, 0, 65530, 65535, 0, 4, 65535, 0, 65530, 65534, 0, 65531, 65534, 0, 65532, 65534, 0, 65534, 65534, 0, 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 3, 65534, 0, 4, 65534, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 65530, 0, 0, 65531, 65535, 0, 65531, 0, 0, 65532, 0, 0, 65532, 65535, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0)
 }
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_f6eyc")
+script = ExtResource("3_xwrq2")
+enemy_scene = ExtResource("2_a3eqb")
 
-[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+[node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -72,7 +75,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="LeftEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.15, -0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -85,7 +88,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="RightEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(0.9, 0, 0.9, 0.15, 1.1, 0.15, 1.1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -98,24 +101,9 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("2_a3eqb")]
-transform = Transform3D(-4.37109e-08, 0, -0.999988, 0, 1, 0, 0.999988, 0, -4.37109e-08, -27, 0, 6)
-
-[node name="Enemy2" parent="Path3D" instance=ExtResource("2_a3eqb")]
-transform = Transform3D(-0.0106109, 0, -0.999932, 0, 1, 0, 0.999932, 0, -0.0106109, -22.0005, 0, 6.05649)
-progress = 5.0
-
-[node name="Enemy3" parent="Path3D" instance=ExtResource("2_a3eqb")]
-transform = Transform3D(-0.00937536, 0, -0.999944, 0, 1, 0, 0.999944, 0, -0.00937536, -17.0006, 0, 6.10648)
-progress = 10.0
-
-[node name="Enemy4" parent="Path3D" instance=ExtResource("2_a3eqb")]
-transform = Transform3D(-0.0079876, 0, -0.999956, 0, 1, 0, 0.999956, 0, -0.0079876, -12.0008, 0, 6.14999)
-progress = 15.0
-
-[node name="Enemy5" parent="Path3D" instance=ExtResource("2_a3eqb")]
-transform = Transform3D(-0.00625317, 0, -0.999968, 0, 1, 0, 0.999968, 0, -0.00625317, -7.0009, 0, 6.18579)
-progress = 20.0
+[node name="Timer" type="Timer" parent="EnemyPath"]
+wait_time = 2.0
+autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_w1b3w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
@@ -123,4 +111,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
 [node name="TurrentManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_jj6vh")
 turret = ExtResource("6_4kuqe")
-enemy_path = NodePath("../Path3D")
+enemy_path = NodePath("../EnemyPath")
+
+[connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="_on_timer_timeout"]

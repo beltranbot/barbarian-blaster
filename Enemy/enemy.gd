@@ -9,7 +9,6 @@ var current_health: int:
 		if health_in < current_health:
 			animation_player.play("TakeDamage")
 		current_health = health_in
-		printt(current_health, health_in)
 		if current_health < 1:
 			queue_free()
 
