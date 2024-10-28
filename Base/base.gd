@@ -11,7 +11,6 @@ var current_health: int:
 			white,
 			float(current_health) / float(max_health))
 		label_3d.modulate = blended_color
-		print("health was changed")
 		if current_health < 1:
 			get_tree().reload_current_scene()
 			pass
