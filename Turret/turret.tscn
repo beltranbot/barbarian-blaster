@@ -1,21 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwppyqc45wki7"]
+[gd_scene load_steps=8 format=3 uid="uid://cwppyqc45wki7"]
 
 [ext_resource type="PackedScene" uid="uid://cemms6d20e5pq" path="res://Turret/projectile.tscn" id="1_5yspu"]
 [ext_resource type="Script" path="res://Turret/turret.gd" id="1_iyj1t"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_1wl6b"]
-height = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_voou7"]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.6
-
-[sub_resource type="BoxMesh" id="BoxMesh_1nr6p"]
-size = Vector3(0.8, 0.4, 0.4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3qcfp"]
-size = Vector3(0.394, 0.2, 0.482)
+[ext_resource type="PackedScene" uid="uid://ducxkjxvru6wi" path="res://Assets/Cannon.glb" id="3_d51ly"]
+[ext_resource type="PackedScene" uid="uid://br07sjloksisv" path="res://Assets/TurretBase.glb" id="4_4ldpt"]
 
 [sub_resource type="Animation" id="Animation_hmxbq"]
 length = 0.001
@@ -59,22 +47,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
 script = ExtResource("1_iyj1t")
 projectile = ExtResource("1_5yspu")
 
-[node name="TurretBase" type="MeshInstance3D" parent="."]
+[node name="TurretBase" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_1wl6b")
 
-[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+[node name="TurretTop" type="Node3D" parent="TurretBase"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-mesh = SubResource("CylinderMesh_voou7")
 
-[node name="Visor" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0722918, 0.603041)
-mesh = SubResource("BoxMesh_1nr6p")
-skeleton = NodePath("../..")
-
-[node name="Barrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Visor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.154927)
-mesh = SubResource("BoxMesh_3qcfp")
+[node name="Cannon" parent="TurretBase/TurretTop" instance=ExtResource("3_d51ly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
@@ -83,5 +63,7 @@ autostart = true
 libraries = {
 "": SubResource("AnimationLibrary_3t63d")
 }
+
+[node name="TurretBase2" parent="." instance=ExtResource("4_4ldpt")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
