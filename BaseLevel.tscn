@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://4qgvfaoktkhb"]
+[gd_scene load_steps=20 format=3 uid="uid://4qgvfaoktkhb"]
 
 [ext_resource type="MeshLibrary" uid="uid://dqewbcymma3xd" path="res://MeshLibraries/SpaceLibrary.tres" id="1_8oufs"]
 [ext_resource type="PackedScene" uid="uid://ctqpgvalo4uwl" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_x1514"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://turrent_manager.gd" id="5_jj6vh"]
 [ext_resource type="PackedScene" uid="uid://cwppyqc45wki7" path="res://Turret/turret.tscn" id="6_4kuqe"]
 [ext_resource type="Script" path="res://bank.gd" id="8_eym5f"]
+[ext_resource type="FontFile" uid="uid://daww5154rvxd7" path="res://Assets/Asap/static/Asap-Bold.ttf" id="8_ns40x"]
 [ext_resource type="PackedScene" uid="uid://chofskm4l50r1" path="res://DifficultyManager/difficulty_manager.tscn" id="9_8owoa"]
 [ext_resource type="PackedScene" uid="uid://dwrmuqlel0jss" path="res://UserInterface/victory_layer.tscn" id="10_3nnhw"]
 
@@ -36,6 +37,9 @@ point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3hox"]
 albedo_color = Color(0.360784, 0.360784, 0.360784, 1)
+
+[sub_resource type="Theme" id="Theme_8hgou"]
+default_font = ExtResource("8_ns40x")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ircpx"]
 font_size = 64
@@ -121,7 +125,6 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_w1b3w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
-max_health = 50
 
 [node name="TurrentManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_jj6vh")
@@ -135,6 +138,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_8hgou")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -149,6 +153,7 @@ text = "placeholder"
 label_settings = SubResource("LabelSettings_ircpx")
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_8owoa")]
+game_length = 180.0
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_3nnhw")]
 visible = false

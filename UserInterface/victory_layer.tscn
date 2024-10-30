@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwrmuqlel0jss"]
+[gd_scene load_steps=6 format=3 uid="uid://dwrmuqlel0jss"]
 
 [ext_resource type="Script" path="res://UserInterface/victory_layer.gd" id="1_3pfet"]
+[ext_resource type="FontFile" uid="uid://daww5154rvxd7" path="res://Assets/Asap/static/Asap-Bold.ttf" id="2_2q85b"]
 [ext_resource type="Texture2D" uid="uid://dre1rwxwmjq1l" path="res://Assets/star.png" id="2_5laxp"]
+
+[sub_resource type="Theme" id="Theme_8hgou"]
+default_font = ExtResource("2_2q85b")
 
 [sub_resource type="LabelSettings" id="LabelSettings_7uuao"]
 font_size = 96
@@ -23,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_8hgou")
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(400, 400)
@@ -71,6 +76,7 @@ stretch_mode = 5
 
 [node name="SurvivedLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "Survived +1"
 horizontal_alignment = 1
@@ -91,6 +97,7 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 10
 
 [node name="RetryButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
