@@ -70,6 +70,7 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="SurvivedLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Survived +1"
 horizontal_alignment = 1
